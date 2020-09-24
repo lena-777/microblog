@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.lena.microblog.mapper.CatagoryMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="cn.lena.microblog.domain.entity.Catagory">
+        <result column="userId" property="userId" />
+        <result column="catagoryId" property="catagoryId" />
+        <result column="catagoryName" property="catagoryName" />
+        <result column="passageNum" property="passageNum" />
+        <result column="isDisplay" property="isDisplay" />
+        <result column="isTop" property="isTop" />
+        <result column="deleted" property="deleted" />
+    </resultMap>
+
+</mapper>

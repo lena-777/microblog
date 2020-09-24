@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>博客</title>
+    <link rel="stylesheet" href="../static/css/elementui.css">
+    <!-- 引入图标 -->
+    <link rel="shortcut icon" href="../static/img/favicon.ico" type="image/x-icon">
+</head>
+
+<body>
+<div id="app">
+
+
+    <!-- 上方菜单栏 -->
+    <header>
+        <!-- :default-active="activeIndex"
+                @select="handleSelect"-->
+        <el-menu class="el-menu-demo deleteLine" mode="horizontal">
+        <el-menu-item index="1">
+            <div>
+                <!-- 导入图标 点击返回首页初始的样子 -->
+                <img src="../static/img/logo.png" v-on:click="returnIndex" style="width: 160px;height: 55px" index="1">
+            </div>
+        </el-menu-item>
+        <!-- 文章搜索 按下回车键的时候 触发方法searchPassage 进行文章模糊搜索-->
+            <el-menu-item index="2">
+                <div class="demo-input-suffix">
+                    <el-input
+                            placeholder="文章搜索"
+                            prefix-icon="el-icon-search"
+                            v-model="inputSearchPassages"
+                            v-on:keydown.enter.native="searchPassage">
+                    </el-input>
+                </div>
+            </el-menu-item>
+         <!--文章搜索按钮-->
+        <el-menu-item index="5" v-on:click="searchPassage">
+            <el-button plain >搜索</el-button>
+        </el-menu-item>
+        <!--点击"编写文章"，先判断用户是否有登录，没有登录不显示，登录了跳到blog.html-->
+        <el-menu-item index="3" v-if="login">
+            <a href="write.html" target="_blank" class="deleteLinkStyle">
+                <el-button plain >编写文章</el-button>
+            </a>
+        </el-menu-item>
+        <!--如果还没有登录就显示该选项 登陆了就显示用户信息-->
+        <el-menu-item index="4" v-if="!login">
+            <a href="login.html" class="deleteLinkStyle">
+                <el-button plain >登录</el-button>
+            </a>
+        </el-menu-item>
+        <el-submenu index="4" v-if="login" >
+            <template slot="title">{{user.username}}</template>
+            <el-menu-item index="4-1">
+                <a href="myblog.html" class="deleteLinkStyle">
+                    我的博客
+                </a>
+            </el-menu-item>
+            <el-menu-item index="4-2">
+                <a href="personal.html" class="deleteLinkStyle">
+                    个人资料
+                </a>
+            </el-menu-item>
+            <el-menu-item index="4-3" v-on:click="loginout" class="deleteLinkStyle">退出登录</el-menu-item>
+        </el-submenu>
+    </el-menu>
+    </header>
+
+    <!-- 侧边栏+文章显示 -->
+    <el-row class="tac" :gutter="20">
+        <!-- 显示关键词 -->
+        <el-col :span="4" id="leftKeyword" style="width: 200px">
+            <el-menu
+                    default-active="2"
+                    class="el-menu-vertical-demo"
+                    background-color="#545c64"
+                    unique-opened
+                    active-text-color="grey"
+                    text-color="#fff"
+                    v-for="(keyword) in keywordData">
+                <el-menu-item :index="keyword.keywordId.toString()" v-on:click="findPassage(keyword)">
+                    <span slot="title" >{{keyword.keywordName}}</span>
+                </el-menu-item>
+            </el-menu>
+        </el-col>
+        <!-- 显示文章 -->
+        <el-col :span="14">
+            <template>
+                <!-- :show-header="false" 不显示表头（默认值是true）-->
+                <el-table
+                        :show-header="false"
+                        style="width: 900px"
+                        :data="passageData">
+                    <el-table-column
+                            prop="title"
+                            width=800>
+                    </el-table-column>
+                    <i class="el-icon-view"></i>
+                    <el-table-column
+                            prop="visited"
+                            width="100px">
+                    </el-table-column>
+                </el-table>
+                <!-- 分页显示图标 -->
+                <div class="block" style="text-align:center">
+                    <el-pagination
+                            @size-change="findAllPassage"
+                            @current-change="findAllPassage"
+                            :current-page.sync="current"
+                            :page-size="size"
+                            layout="prev, pager, next, jumper"
+                            :total="total">
+                    </el-pagination>
+                </div>
+            </template>
+        </el-col>
+        <!-- 显示关注度较高的用户 -->
+        <el-col :span="2" v-for="(user) in userData" >
+            <el-card :body-style="{ padding: '10px' }" class="cardSize" >
+                <img :src="user.avater" class="image avaterSize">
+                <div style="padding: 5px;color: darkgrey">
+                    <span style="color: black" v-on.click="">{{user.username}}</span>
+                    <div>
+                        粉丝数：{{user.fans}}
+                    </div>
+                    <div class="bottom clearfix">
+                        <time class="time">{{ user.joinDate }}</time>
+                        <!--<el-button type="text" class="button">操作按钮</el-button>-->
+                    </div>
+                </div>
+            </el-card>
+        </el-col>
+    </el-row>
+
+
+
+</div>
+</body>
+
+<!-- 引入vue和elementUI所需配置文件 -->
+<!--<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>-->
+<script src="../static/js/vuejs-2.5.16.js"></script>
+<script src="../static/js/elementui.js"></script>
+<script src="../static/js/axios.js"></script>
+
+<!-- util.js文件 -->
+<script type="text/javascript" src="../static/js/util.js"></script>
+<!-- 引入index.js文件 -->
+<script type="text/javascript" src="../static/js/index.js"></script>
+<!-- 引入index.css文件 -->
+<style>
+    @import "../static/css/microblog.css";
+</style>
+
+</html>

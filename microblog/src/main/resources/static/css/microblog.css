@@ -1,0 +1,86 @@
+
+/* ===设置keyword.html的css=== */
+
+/* ===设置register.html的css=== */
+
+/* ===设置write.html的css=== */
+
+
+/* ===设置myblog.html的css=== */
+.myblogCardSize{
+    width:200px;
+    height: 290px;
+    text-align: center;
+}
+.blogAvaterSize{
+    width: 180px;
+    height: 180px;
+}
+
+/* ===设置personal.html的css=== */
+
+/* ===设置passage.html的css=== */
+
+/* ===设置login.html的css=== */
+/*设置表单位置*/
+.loginform{
+    width: 350px;
+    position: absolute;
+    top: 50%;
+    left: 75%;
+    margin-top: -170px;
+    margin-left: -175px;
+}
+
+
+/* ===设置index.html的css=== */
+/*设置用户名片大小*/
+.cardSize{
+    width:135px;
+    height: 192px;
+}
+.avaterSize{
+    width: 100px;
+    height: 100px;
+}
+
+
+
+/* ===设置菜单栏的css=== */
+/* 取消超链接的样式 */
+.deleteLinkStyle{
+    text-decoration: none;
+    color:grey;
+}
+/*上方菜单栏 位置的设定*/
+.el-row {
+    margin-bottom: 20px;
+}
+.el-row:last-child {
+    margin-bottom: 0;
+}
+.el-col {
+    border-radius: 4px;
+}
+.bg-purple-dark {
+    background: #99a9bf;
+}
+.bg-purple {
+    background: #d3dce6;
+}
+.bg-purple-light {
+    background: #e5e9f2;
+}
+.grid-content {
+    border-radius: 4px;
+    min-height: 36px;
+}
+.row-bg {
+    padding: 10px 0;
+    background-color: #f9fafc;
+}
+/*删除菜单栏的下划线*/
+.deleteLine{
+    text-decoration: none;
+    active-text-color:white;
+}

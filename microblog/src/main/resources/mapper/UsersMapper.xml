@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.lena.microblog.mapper.UsersMapper">
+
+    <!-- 通用查询映射结果(全部字段查询) -->
+    <resultMap id="BaseResultMap" type="cn.lena.microblog.domain.entity.Users">
+        <id column="userId" property="userId" />
+        <result column="username" property="username" />
+        <result column="password" property="password" />
+        <result column="sex" property="sex" />
+        <result column="email" property="email" />
+        <result column="joinDate" property="joinDate" />
+        <result column="lastTime" property="lastTime" />
+        <result column="status" property="status" />
+        <result column="avater" property="avater" />
+        <result column="catagory" property="catagory" />
+        <result column="collect" property="collect" />
+        <result column="fans" property="fans" />
+        <result column="attention" property="attention" />
+        <result column="fansId" property="fansId" />
+        <result column="attentionId" property="attentionId" />
+    </resultMap>
+
+    <!-- 返回结果集：用户部分信息 避免泄露导致安全问题 -->
+    <resultMap id="FindTopSecurity" type="cn.lena.microblog.domain.entity.Users">
+        <id column="userId" property="userId" />
+        <result column="username" property="username" />
+        <result column="sex" property="sex" />
+        <result column="email" property="email" />
+        <result column="joinDate" property="joinDate" />
+        <result column="avater" property="avater" />
+        <result column="catagory" property="catagory" />
+        <result column="collect" property="collect" />
+        <result column="fans" property="fans" />
+        <result column="attention" property="attention" />
+        <result column="fansId" property="fansId" />
+        <result column="attentionId" property="attentionId" />
+    </resultMap>
+
+    <!-- 新增查询方法 -->
+    <select id="selectTopUser" resultMap="FindTopSecurity">
+        select userId,username,sex,email,joinDate,avater,catagory,collect,fans,attention,fansId,attentionId
+        from users
+        where status=1 and deleted=0
+        order by fans ASC
+    </select>
+</mapper>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.lena.microblog.mapper.MessagesMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="cn.lena.microblog.domain.entity.Messages">
+        <id column="message" property="message" />
+        <result column="sentUserId" property="sentUserId" />
+        <result column="receiveUserId" property="receiveUserId" />
+        <result column="operation" property="operation" />
+        <result column="passageId" property="passageId" />
+        <result column="discussContent" property="discussContent" />
+        <result column="operationTime" property="operationTime" />
+        <result column="deleted" property="deleted" />
+    </resultMap>
+
+</mapper>

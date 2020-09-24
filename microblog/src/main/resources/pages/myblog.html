@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>博客</title>
+    <link rel="stylesheet" href="../static/css/elementui.css">
+    <!-- 引入图标 -->
+    <link rel="shortcut icon" href="../static/img/favicon.ico" type="image/x-icon">
+</head>
+
+<body>
+<div id="app">
+
+    <el-row>
+        <el-col :span="4" >
+            <!-- 显示用户名片 -->
+            <el-row>
+                <el-card :body-style="{ padding: '10px' }" class="myblogCardSize" >
+                    <img :src="user.avater" class="image blogAvaterSize">
+                    <div style="padding: 10px;color: darkgrey">
+                        <span style="color: black">{{user.username}}</span>
+                        <div>
+                            粉丝数：{{user.fans}}
+                        </div>
+                        <div class="bottom clearfix">
+                            <time class="time">{{ user.joinDate }}</time>
+                            <!--如果是本人的话，就不显示关注按钮；不是本人就显示关注按钮。-->
+                            <el-button type="text" class="button" v-if="!isMe">关注</el-button>
+                            <!--取消关注？-->
+                        </div>
+                    </div>
+                </el-card>
+            </el-row>
+            <!--显示用户的分类-->
+            <el-row>
+                <template>
+                    <!-- :show-header="false" 不显示表头（默认值是true）-->
+                    <el-table
+                            :show-header="false"
+                            style="width: 900px"
+                            :data="catagoryData">
+                        <el-table-column
+                                prop="catagoryName"
+                                width="100px">
+                        </el-table-column>
+                        <!--<i class="el-icon-view"></i>-->
+                        <el-table-column
+                                prop="passageNum"
+                                width="20px">篇
+                        </el-table-column>
+                    </el-table>
+                </template>
+            </el-row>
+        </el-col>
+        <!-- 显示文章 -->
+        <el-col :span="16">
+            <template>
+                <!-- :show-header="false" 不显示表头（默认值是true）-->
+                <el-table
+                        :show-header="false"
+                        style="width: 900px"
+                        :data="passageData">
+                    <el-table-column
+                            prop="title"
+                            width=700>
+                    </el-table-column>
+                    <el-table-column
+                            prop="createDate"
+                            width="100px">
+                    </el-table-column>
+                    <!--浏览量图标-->
+                    <i class="el-icon-view"></i>
+                    <el-table-column
+                            prop="visited"
+                            width="100px">
+                    </el-table-column>
+                </el-table>
+                <!-- 分页显示图标 -->
+                <div class="block" style="text-align:center">
+                    <el-pagination
+                            @size-change="findPassageById"
+                            @current-change="findPassageById"
+                            :current-page.sync="current"
+                            :page-size="size"
+                            layout="prev, pager, next, jumper"
+                            :total="total">
+                    </el-pagination>
+                </div>
+            </template>
+        </el-col>
+    </el-row>
+
+
+</div>
+</body>
+
+<!-- 引入vue和elementUI所需配置文件 -->
+<!--<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>-->
+<script src="../static/js/vuejs-2.5.16.js"></script>
+<script src="../static/js/elementui.js"></script>
+<script src="../static/js/axios.js"></script>
+
+<!-- util.js文件 -->
+<script type="text/javascript" src="../static/js/util.js"></script>
+<!-- myblog.js文件 -->
+<script type="text/javascript" src="../static/js/myblog.js"></script>
+<!-- 引入index.css文件 -->
+<style>
+    @import "../static/css/microblog.css";
+</style>
+
+</html>
